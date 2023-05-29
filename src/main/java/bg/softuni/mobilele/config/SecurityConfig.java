@@ -5,6 +5,7 @@ import bg.softuni.mobilele.service.MobileleUserDetailService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -39,11 +40,11 @@ public class SecurityConfig {
                 // configure login with HTML form
                         formLogin().
                 loginPage("/users/login").
-                // the names of the user name, password input fields in the custom login form
-                        usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY).
+                usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY).
+                // the name of the password form field
                 passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY).
                 // where do we go after login
-                        defaultSuccessUrl("/").//use true argument if you always want to go there, otherwise go to previous page
+                defaultSuccessUrl("/").//use true argument if you always want to go there, otherwise go to previous page
                 failureForwardUrl("/users/login-error").
                 and().logout().//configure logout
                 logoutUrl("/users/logout").
@@ -54,6 +55,7 @@ public class SecurityConfig {
         return http.build();
     }
 
+    @Primary
     @Bean
     public UserDetailsService userDetailsService(UserRepository userRepository) {
         return new MobileleUserDetailService(userRepository);

@@ -1,4 +1,4 @@
-package bg.softuni.mobilele.model.dto.offerDTOs;
+package bg.softuni.mobilele.model.dto.offer;
 
 import bg.softuni.mobilele.model.enums.EngineEnum;
 import bg.softuni.mobilele.model.enums.TransmissionEnum;
@@ -20,6 +20,10 @@ public class AddOfferDTO {
     @Min(1900)
     @NotNull
     private Integer year;
+
+    @Positive
+    @NotNull
+    private Integer mileage;
 
     @NotBlank
     private String description;
@@ -63,6 +67,42 @@ public class AddOfferDTO {
 
     public AddOfferDTO setTransmission(TransmissionEnum transmission) {
         this.transmission = transmission;
+        return this;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public AddOfferDTO setPrice(Integer price) {
+        this.price = price;
+        return this;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public AddOfferDTO setYear(Integer year) {
+        this.year = year;
+        return this;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public AddOfferDTO setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public Integer getMileage() {
+        return mileage;
+    }
+
+    public AddOfferDTO setMileage(Integer mileage) {
+        this.mileage = mileage;
         return this;
     }
 }

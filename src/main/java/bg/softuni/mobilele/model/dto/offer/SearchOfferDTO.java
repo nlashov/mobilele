@@ -1,4 +1,4 @@
-package bg.softuni.mobilele.model.dto.offerDTOs;
+package bg.softuni.mobilele.model.dto.offer;
 
 import jakarta.validation.constraints.NotEmpty;
 

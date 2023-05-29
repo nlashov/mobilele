@@ -1,13 +1,18 @@
 package bg.softuni.mobilele.service;
 
-import bg.softuni.mobilele.model.dto.offerDTOs.AddOfferDTO;
+import bg.softuni.mobilele.model.dto.offer.AddOfferDTO;
+import bg.softuni.mobilele.model.dto.offer.CardListingOfferDTO;
 import bg.softuni.mobilele.model.entity.ModelEntity;
 import bg.softuni.mobilele.model.entity.OfferEntity;
+import bg.softuni.mobilele.model.entity.UserEntity;
 import bg.softuni.mobilele.model.mapper.OfferMapper;
 import bg.softuni.mobilele.repository.ModelRepository;
 import bg.softuni.mobilele.repository.OfferRepository;
 import bg.softuni.mobilele.repository.UserRepository;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class OfferService {
@@ -26,21 +31,27 @@ public class OfferService {
         this.offerMapper = offerMapper;
     }
 
-    public void addOffer(AddOfferDTO addOfferDTO) {
+    public void addOffer(AddOfferDTO addOfferDTO, UserDetails userDetails) {
 
         OfferEntity newOffer = offerMapper.
                 addOfferDTOtoOfferEntity(addOfferDTO);
 
-        //TODO - current user should be logged in
-//        UserEntity seller = userRepository.findByEmail(currentUser.getEmail()).orElseThrow();
-
+        UserEntity seller = userRepository.findByEmail(userDetails.getUsername()).orElseThrow();
         ModelEntity model = modelRepository.findById(addOfferDTO.getModelId()).orElseThrow();
 
         newOffer.setModel(model);
-        //newOffer.setSeller(seller);
+        newOffer.setSeller(seller);
 
         offerRepository.save(newOffer);
 
+    }
+
+    public List<CardListingOfferDTO> findOfferByOfferName(String query) {
+        return this.offerRepository
+                .findAllByModel_NameContains(query)
+                .stream()
+                .map(offerMapper::offerEntityToCardListingOfferDto)
+                .toList();
     }
 
 }

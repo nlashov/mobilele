@@ -1,11 +1,11 @@
-package bg.softuni.mobilele.model.dto.offerDTOs;
+package bg.softuni.mobilele.model.dto.offer;
 
 import bg.softuni.mobilele.model.enums.EngineEnum;
 import bg.softuni.mobilele.model.enums.TransmissionEnum;
 
 import java.math.BigDecimal;
 
-public class CarListingOfferDTO {
+public class CardListingOfferDTO {
     private String imageUrl;
     private Integer year;
     private String brand;
@@ -15,7 +15,7 @@ public class CarListingOfferDTO {
     private EngineEnum engine;
     private TransmissionEnum transmission;
 
-    public CarListingOfferDTO() {
+    public CardListingOfferDTO() {
     }
 
     public String getImageUrl() {

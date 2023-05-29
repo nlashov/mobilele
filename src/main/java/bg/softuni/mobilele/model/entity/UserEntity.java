@@ -1,10 +1,7 @@
 package bg.softuni.mobilele.model.entity;
 
 import bg.softuni.mobilele.model.enums.UserRoleEnum;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +39,7 @@ public class UserEntity extends BaseEntity{
 
     private String imageUrl;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<UserRoleEntity> userRoles = new ArrayList<>();
 
     public String getEmail() {

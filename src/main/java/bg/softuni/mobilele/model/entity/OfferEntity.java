@@ -13,10 +13,8 @@ import java.util.UUID;
 public class OfferEntity {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(columnDefinition = "varchar(255)")
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String description;
 
@@ -43,11 +41,11 @@ public class OfferEntity {
     @ManyToOne
     private UserEntity seller;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public OfferEntity setId(UUID id) {
+    public OfferEntity setId(Long id) {
         this.id = id;
         return this;
     }
